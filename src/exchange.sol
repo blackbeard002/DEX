@@ -5,7 +5,10 @@ import "./interface/IERC20.sol";
 
 contract Exchange 
 {
+    //@dev ERC20 token that's being traded on the exchange 
     IERC20 public s_token;
+
+    //@dev Total number of 'UNI' equivalent in existence
     uint public s_totalSupply; 
     mapping(address => uint) public s_balances;
 
@@ -50,5 +53,29 @@ contract Exchange
 
             return initial_liquidity; 
         }
+    }
+
+    function removeLiquidity(uint amount, uint min_eth, uint min_tokens) public returns(uint,uint)
+    {
+        require(amount > 0 && min_eth > 0 && min_tokens >0);
+
+        uint total_liquidity = s_totalSupply;
+        require(total_liquidity > 0);
+
+        uint token_reserve = s_token.balanceOf(address(this));
+
+        uint eth_amount = amount * address(this).balance / total_liquidity; 
+
+        uint token_amount = amount * token_reserve / total_liquidity; 
+
+        require(eth_amount >= min_eth && token_amount >= min_tokens);
+
+        s_balances[msg.sender] -= amount; 
+        s_totalSupply = total_liquidity - amount;
+
+        payable(msg.sender).transfer(eth_amount); 
+        require(s_token.transferFrom(address(this), msg.sender, token_amount));
+
+        return(eth_amount, token_amount);
     }
 }
