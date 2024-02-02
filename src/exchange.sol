@@ -23,7 +23,7 @@ contract Exchange
 
         if(total_liquidity > 0)
         {
-            require(min_liquidity > 0);
+            require(min_liquidity > 0); 
 
             uint eth_reserve = address(this).balance - msg.value;
             uint token_reserve = s_token.balanceOf(address(this));
