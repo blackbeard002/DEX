@@ -1,24 +1,54 @@
 //SPDX-License-Identifier:MIT
 pragma solidity ^0.8.20;
 
-contract Exchange
+import "./interface/IERC20.sol";
+
+contract Exchange 
 {
-
+    IERC20 public s_token;
     uint public s_totalSupply; 
+    mapping(address => uint) public s_balances;
 
-    constructor()
-
-    function addLiquidity(uint min_liquidity,uint max_tokens) public returns(uint)
+    constructor(address token)
+    {
+        s_token = IERC20(token); 
+    }
+ 
+    function addLiquidity(uint min_liquidity,uint max_tokens) public payable returns(uint)
     {
         uint total_liquidity = s_totalSupply; 
 
         if(total_liquidity > 0)
         {
+            require(min_liquidity > 0);
 
+            uint eth_reserve = address(this).balance - msg.value;
+            uint token_reserve = s_token.balanceOf(address(this));
+
+            uint token_amount = msg.value * token_reserve / eth_reserve + 1; 
+            uint liquidity_minted = msg.value * total_liquidity / eth_reserve; 
+
+            require(max_tokens >= token_amount && liquidity_minted >= min_liquidity);
+
+            s_balances[msg.sender] += liquidity_minted;
+
+            s_totalSupply = total_liquidity + liquidity_minted; 
+
+            require(s_token.transferFrom(msg.sender, address(this), token_amount));
+
+            return liquidity_minted;
         }
         else
         {
+            uint token_amount = max_tokens; 
+            uint initial_liquidity = address(this).balance; 
 
+            s_totalSupply = initial_liquidity;
+            s_balances[msg.sender] = initial_liquidity; 
+
+            require(s_token.transferFrom(msg.sender, address(this), token_amount));
+
+            return initial_liquidity; 
         }
     }
 }
