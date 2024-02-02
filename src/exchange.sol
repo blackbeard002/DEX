@@ -3,8 +3,22 @@ pragma solidity ^0.8.20;
 
 contract Exchange
 {
-    function add(uint a,uint b) public returns(uint)
+
+    uint public s_totalSupply; 
+
+    constructor()
+
+    function addLiquidity(uint min_liquidity,uint max_tokens) public returns(uint)
     {
-        return a+b;
-    }  
+        uint total_liquidity = s_totalSupply; 
+
+        if(total_liquidity > 0)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
 }
