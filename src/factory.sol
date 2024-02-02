@@ -15,7 +15,7 @@ contract Factory
         require(token != address(0));
         require(s_Token_To_Exchange[token] == address(0));
         
-        address new_exchange = address(new Exchange());
+        address new_exchange = address(new Exchange(token));
 
         s_Token_To_Exchange[token] = new_exchange;
         s_Exchange_To_Token[new_exchange] = token; 
