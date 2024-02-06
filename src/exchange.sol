@@ -6,7 +6,7 @@ import "./interface/IERC20.sol";
 contract Exchange 
 {
     //@dev ERC20 token that's being traded on the exchange 
-    IERC20 public s_token;
+    IERC20 public ss_token;
 
     //@dev Total number of 'UNI' equivalent in existence
     uint public s_totalSupply; 
