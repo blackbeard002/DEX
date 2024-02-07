@@ -1,5 +1,24 @@
 {
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.1"
-  }
+  },
+  "name": "dex",
+  "description": "This is a uniswap v1 like AAM DEX. Under construction.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-foundry": "^1.1.1",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.19.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

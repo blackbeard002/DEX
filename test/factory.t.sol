@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import {Test, console2} from "forge-std/Test.sol";
-import {Factory} from "../src/Factory.sol"; 
+import {Factory} from "../contracts/Factory.sol"; 
 
 contract FactoryTest is Test 
 {
