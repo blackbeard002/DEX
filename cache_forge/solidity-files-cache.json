@@ -12,10 +12,10 @@
     ]
   },
   "files": {
-    "contracts/Lock.sol": {
-      "lastModificationDate": 1707343312078,
-      "contentHash": "ae66265769cc28ebdaa34881df95bc5e",
-      "sourceName": "contracts/Lock.sol",
+    "contracts/Exchange.sol": {
+      "lastModificationDate": 1707345064875,
+      "contentHash": "9b58aad02e6e154cdd1493ac7c4b933b",
+      "sourceName": "contracts/Exchange.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -45,11 +45,106 @@
           "libraries": {}
         }
       },
-      "imports": [],
-      "versionRequirement": "^0.8.9",
+      "imports": [
+        "node_modules/@openzeppelin/contracts/interfaces/IERC20.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol"
+      ],
+      "versionRequirement": "^0.8.19",
       "artifacts": {
-        "Lock": {
-          "0.8.21+commit.d9974bed.Linux.gcc": "Lock.sol/Lock.json"
+        "Exchange": {
+          "0.8.21+commit.d9974bed.Linux.gcc": "Exchange.sol/Exchange.json"
+        }
+      }
+    },
+    "contracts/Factory.sol": {
+      "lastModificationDate": 1707331553761,
+      "contentHash": "9db5c26b98a97e045c8c90e037a6a37c",
+      "sourceName": "contracts/Factory.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "contracts/Exchange.sol",
+        "node_modules/@openzeppelin/contracts/interfaces/IERC20.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol"
+      ],
+      "versionRequirement": "^0.8.20",
+      "artifacts": {
+        "Factory": {
+          "0.8.21+commit.d9974bed.Linux.gcc": "Factory.sol/Factory.json"
+        }
+      }
+    },
+    "contracts/Mock/MockERC20.sol": {
+      "lastModificationDate": 1707340131652,
+      "contentHash": "5e52cac1739db2d7f8bdc948a05c24e9",
+      "sourceName": "contracts/Mock/MockERC20.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "node_modules/@openzeppelin/contracts/interfaces/draft-IERC6093.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
+        "node_modules/@openzeppelin/contracts/utils/Context.sol"
+      ],
+      "versionRequirement": "^0.8.20",
+      "artifacts": {
+        "MockERC20": {
+          "0.8.21+commit.d9974bed.Linux.gcc": "MockERC20.sol/MockERC20.json"
         }
       }
     },
@@ -1310,145 +1405,9 @@
         }
       }
     },
-    "src/Exchange.sol": {
-      "lastModificationDate": 1707329477459,
-      "contentHash": "3723608ed501ac1797514bcd5de79653",
-      "sourceName": "src/Exchange.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "metadata": {
-            "useLiteralContent": false,
-            "bytecodeHash": "ipfs",
-            "appendCBOR": true
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "paris",
-          "libraries": {}
-        }
-      },
-      "imports": [
-        "node_modules/@openzeppelin/contracts/interfaces/IERC20.sol",
-        "node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol"
-      ],
-      "versionRequirement": "^0.8.20",
-      "artifacts": {
-        "Exchange": {
-          "0.8.21+commit.d9974bed.Linux.gcc": "Exchange.sol/Exchange.json"
-        }
-      }
-    },
-    "src/Factory.sol": {
-      "lastModificationDate": 1707331553761,
-      "contentHash": "9db5c26b98a97e045c8c90e037a6a37c",
-      "sourceName": "src/Factory.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "metadata": {
-            "useLiteralContent": false,
-            "bytecodeHash": "ipfs",
-            "appendCBOR": true
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "paris",
-          "libraries": {}
-        }
-      },
-      "imports": [
-        "node_modules/@openzeppelin/contracts/interfaces/IERC20.sol",
-        "node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "src/Exchange.sol"
-      ],
-      "versionRequirement": "^0.8.20",
-      "artifacts": {
-        "Factory": {
-          "0.8.21+commit.d9974bed.Linux.gcc": "Factory.sol/Factory.json"
-        }
-      }
-    },
-    "src/Mock/MockERC20.sol": {
-      "lastModificationDate": 1707340131652,
-      "contentHash": "5e52cac1739db2d7f8bdc948a05c24e9",
-      "sourceName": "src/Mock/MockERC20.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "metadata": {
-            "useLiteralContent": false,
-            "bytecodeHash": "ipfs",
-            "appendCBOR": true
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "paris",
-          "libraries": {}
-        }
-      },
-      "imports": [
-        "node_modules/@openzeppelin/contracts/interfaces/draft-IERC6093.sol",
-        "node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        "node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
-        "node_modules/@openzeppelin/contracts/utils/Context.sol"
-      ],
-      "versionRequirement": "^0.8.20",
-      "artifacts": {
-        "MockERC20": {
-          "0.8.21+commit.d9974bed.Linux.gcc": "MockERC20.sol/MockERC20.json"
-        }
-      }
-    },
     "test/exchange.t.sol": {
-      "lastModificationDate": 1707341903565,
-      "contentHash": "afc796bcbdb102e5fa28c3c7fc7abcec",
+      "lastModificationDate": 1707344080618,
+      "contentHash": "8333a043a75ce0af445481293e13f65b",
       "sourceName": "test/exchange.t.sol",
       "solcConfig": {
         "settings": {
@@ -1480,6 +1439,9 @@
         }
       },
       "imports": [
+        "contracts/Exchange.sol",
+        "contracts/Factory.sol",
+        "contracts/Mock/MockERC20.sol",
         "lib/forge-std/lib/ds-test/src/test.sol",
         "lib/forge-std/src/Base.sol",
         "lib/forge-std/src/StdAssertions.sol",
@@ -1505,10 +1467,7 @@
         "node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
         "node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol",
         "node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
-        "node_modules/@openzeppelin/contracts/utils/Context.sol",
-        "src/Exchange.sol",
-        "src/Factory.sol",
-        "src/Mock/MockERC20.sol"
+        "node_modules/@openzeppelin/contracts/utils/Context.sol"
       ],
       "versionRequirement": "^0.8.20",
       "artifacts": {
@@ -1518,8 +1477,8 @@
       }
     },
     "test/factory.t.sol": {
-      "lastModificationDate": 1707331581504,
-      "contentHash": "8efe8480343f72591d080283a99cefae",
+      "lastModificationDate": 1707344089133,
+      "contentHash": "3e1d28c2c23667b71af62c3224162719",
       "sourceName": "test/factory.t.sol",
       "solcConfig": {
         "settings": {
@@ -1551,6 +1510,8 @@
         }
       },
       "imports": [
+        "contracts/Exchange.sol",
+        "contracts/Factory.sol",
         "lib/forge-std/lib/ds-test/src/test.sol",
         "lib/forge-std/src/Base.sol",
         "lib/forge-std/src/StdAssertions.sol",
@@ -1572,9 +1533,7 @@
         "lib/forge-std/src/mocks/MockERC721.sol",
         "lib/forge-std/src/safeconsole.sol",
         "node_modules/@openzeppelin/contracts/interfaces/IERC20.sol",
-        "node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "src/Exchange.sol",
-        "src/Factory.sol"
+        "node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol"
       ],
       "versionRequirement": "^0.8.20",
       "artifacts": {
