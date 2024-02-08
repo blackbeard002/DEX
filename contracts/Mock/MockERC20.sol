@@ -5,6 +5,9 @@ import "node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract MockERC20 is ERC20
 {
+    event minted(
+        address caller
+    );
     address public manager; 
 
     constructor() ERC20("MOCK_TOKENS","MCK")
@@ -12,10 +15,10 @@ contract MockERC20 is ERC20
         manager = msg.sender; 
     }
 
-    function mintTokens(uint amount,address to) public returns(address)
+    function mintTokens(uint amount,address to) public
     {
         _mint(to, amount);
-        return to; 
+        emit minted(msg.sender);
     }
 
     function bal(address user) public returns(uint)
