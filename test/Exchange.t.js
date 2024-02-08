@@ -26,7 +26,9 @@ describe("Exchange",()=>{
             await expect(await mockERC20.balanceOf(messi)).to.equal(100000);
         });
 
-        
+        it("should add liquidity",async ()=>{
+            
+        });
     });
 });
 

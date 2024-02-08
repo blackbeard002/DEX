@@ -16,6 +16,17 @@ contract Exchange
     {
         s_token = IERC20(token); 
     }
+
+    event LiquidityAdded(
+        uint indexed liquidityMinted,
+        uint indexed balanceOfUser,
+        uint indexed totalPoolLiquidity
+    );
+
+    event LiquidityRemoved(
+        uint indexed EthersAmount,
+        uint indexed TokenAmount
+    );
  
     function addLiquidity(uint min_liquidity,uint max_tokens) public payable returns(uint)
     {
@@ -39,6 +50,8 @@ contract Exchange
 
             require(s_token.transferFrom(msg.sender, address(this), token_amount));
 
+            emit LiquidityAdded(liquidity_minted,s_balances[msg.sender], s_totalSupply);
+
             return liquidity_minted;
         }
         else
@@ -50,6 +63,8 @@ contract Exchange
             s_balances[msg.sender] = initial_liquidity; 
 
             require(s_token.transferFrom(msg.sender, address(this), token_amount));
+
+            emit LiquidityAdded(initial_liquidity,s_balances[msg.sender], s_totalSupply);
 
             return initial_liquidity; 
         }
@@ -75,6 +90,8 @@ contract Exchange
 
         payable(msg.sender).transfer(eth_amount); 
         require(s_token.transferFrom(address(this), msg.sender, token_amount));
+
+        emit LiquidityRemoved(eth_amount, token_amount);
 
         return(eth_amount, token_amount);
     }
