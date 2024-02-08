@@ -4,23 +4,29 @@ const {expect}= require("chai");
 describe("Exchange",()=>{
     let exchange;
     let mockERC20; 
-    let accounts; 
+    let messi;
+    let suarez;
+    let neymar; 
 
-    beforeEach(async ()=>{
-        accounts = await ethers.getSigners();
-        const Exchange = await ethers.getContractFactory("Exchange");
-        //exchange = await Exchange.deploy(); 
+    before(async ()=>{
+        [messi, suarez, neymar] = await ethers.getSigners();
         const MockERC20 = await ethers.getContractFactory("MockERC20");
         mockERC20 = await MockERC20.deploy(); 
+        const Exchange = await ethers.getContractFactory("Exchange");
+        exchange = await Exchange.deploy(mockERC20); 
+
     });
 
     context("Add Liquidity", ()=>{
 
         it("should mint ERC20 mock tokens",async()=>{
-            await expect(await mockERC20.connect(accounts[1]).mintTokens(100000,accounts[1].address)).to
-            .emit(mockERC20,"minted").withArgs(accounts[1]);
+            await expect(await mockERC20.connect(messi).mintTokens(100000)).to
+            .emit(mockERC20,"minted").withArgs(messi);
 
-            console.log("Balance:"+await mockERC20.balanceOf(accounts[1]));
+            await expect(await mockERC20.balanceOf(messi)).to.equal(100000);
         });
+
+        
     });
 });
+

@@ -15,19 +15,9 @@ contract MockERC20 is ERC20
         manager = msg.sender; 
     }
 
-    function mintTokens(uint amount,address to) public
+    function mintTokens(uint amount) public
     {
-        _mint(to, amount);
+        _mint(msg.sender, amount);
         emit minted(msg.sender);
-    }
-
-    function bal(address user) public returns(uint)
-    {
-        return balanceOf(user);
-    }
-
-    function check() public returns(address)
-    {
-        return msg.sender; 
     }
 }
