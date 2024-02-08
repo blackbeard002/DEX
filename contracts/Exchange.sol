@@ -42,7 +42,7 @@ contract Exchange
             uint token_amount = msg.value * token_reserve / eth_reserve + 1; 
             uint liquidity_minted = msg.value * total_liquidity / eth_reserve; 
 
-            require(max_tokens >= token_amount && liquidity_minted >= min_liquidity);
+            require(max_tokens >= token_amount && liquidity_minted >= min_liquidity,"Bug:1");
 
             s_balances[msg.sender] += liquidity_minted;
 
@@ -89,7 +89,7 @@ contract Exchange
         s_totalSupply = total_liquidity - amount;
 
         payable(msg.sender).transfer(eth_amount); 
-        require(s_token.transferFrom(address(this), msg.sender, token_amount));
+        require(s_token.transfer(msg.sender, token_amount));
 
         emit LiquidityRemoved(eth_amount, token_amount);
 
