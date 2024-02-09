@@ -42,12 +42,9 @@ describe("Exchange",()=>{
         });
 
         it("should remove liquidity",async()=>{
-            // await expect(await exchange.connect(suarez).
-            // removeLiquidity(ethers.parseEther("0.05"),1,1)); 
-            await exchange.connect(suarez).
-            removeLiquidity(ethers.parseEther("0.05"),1,1);
-            console.log("contract's token balance:"+await mockERC20.
-            balanceOf(exchange));
+            await expect(await exchange.connect(suarez).
+            removeLiquidity(ethers.parseEther("0.05"),1,1)).to.emit(exchange,
+            "LiquidityRemoved").withArgs(ethers.parseEther("0.05"),12500);
         });
     });
 });
