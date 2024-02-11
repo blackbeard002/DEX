@@ -31,8 +31,8 @@ contract Exchange
 
     event TokensPurchased(
         address buyer,
-        uint eth_sold,
-        uint tokens_bought
+        uint tokens_sold,
+        uint eth_bought
     );
  
     function addLiquidity(uint min_liquidity,uint max_tokens) public payable returns(uint)
@@ -117,7 +117,7 @@ contract Exchange
         return numerator / denominator; 
     }
 
-    function ethToERC20(uint min_tokens) public payable returns(uint)
+    function ethToToken(uint min_tokens) public payable returns(uint)
     {
         uint eth_sold = msg.value; 
         
@@ -134,5 +134,22 @@ contract Exchange
         emit TokensPurchased(msg.sender, eth_sold, tokens_bought);
 
         return tokens_bought; 
+    }
+
+    function tokenToEth(uint tokens_sold, uint min_eth) public returns(uint)
+    {
+        require(tokens_sold > 0 && min_eth > 0);
+
+        uint token_reserve = s_token.balanceOf(address(this));
+
+        uint eth_bought = getInputPrice(tokens_sold, token_reserve, address(this).balance);
+
+        require(eth_bought > min_eth);
+
+        msg.sender.transfer(eth_bought);
+
+        require(s_token.transferFrom(msg.sender, address(this), tokens_sold));
+
+        TokensPurchased(msg.sender, tokens_sold, eth_bought);
     }
 }
