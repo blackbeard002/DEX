@@ -28,6 +28,12 @@ contract Exchange
         uint indexed EthersAmount,
         uint indexed TokenAmount
     );
+
+    event TokensPurchased(
+        address buyer,
+        uint eth_sold,
+        uint tokens_bought
+    );
  
     function addLiquidity(uint min_liquidity,uint max_tokens) public payable returns(uint)
     {
@@ -100,14 +106,22 @@ contract Exchange
     function getInputPrice(uint input_amount, uint input_reserve, uint output_reserve) 
     internal returns(uint)
     {
-        
+        require(input_reserve > 0 && output_reserve > 0);
+
+        uint input_amount_with_fee = input_amount * 997;
+
+        uint numerator = input_amount_with_fee * output_reserve;
+
+        uint denominator = (input_reserve * 1000) + input_amount_with_fee;
+
+        return numerator / denominator; 
     }
 
     function ethToERC20(uint min_tokens) public payable returns(uint)
     {
         uint eth_sold = msg.value; 
         
-        require(eth_sold > 0 && min_tokens >0);
+        require(eth_sold > 0 && min_tokens > 0);
 
         uint token_reserve = s_token.balanceOf(address(this));
 
@@ -117,8 +131,8 @@ contract Exchange
 
         require(s_token.transfer(msg.sender, tokens_bought));
 
-        //emit
+        emit TokensPurchased(msg.sender, eth_sold, tokens_bought);
 
-        return tokens_bought;dsdscsd 
+        return tokens_bought; 
     }
 }
