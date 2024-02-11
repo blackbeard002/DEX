@@ -1,5 +1,5 @@
 //SPDX-License-Identifier:MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.19;
 
 import "node_modules/@openzeppelin/contracts/interfaces/IERC20.sol";
 
@@ -10,6 +10,7 @@ contract Exchange
 
     //@dev Total number of 'UNI' equivalent in existence
     uint public s_totalSupply; 
+    
     mapping(address => uint) public s_balances;
 
     constructor(address token)
@@ -94,5 +95,10 @@ contract Exchange
         emit LiquidityRemoved(eth_amount, token_amount);
 
         return(eth_amount, token_amount);
+    }
+
+    function ethToERC20() public 
+    {
+        
     }
 }
