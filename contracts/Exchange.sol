@@ -97,8 +97,28 @@ contract Exchange
         return(eth_amount, token_amount);
     }
 
-    function ethToERC20() public 
+    function getInputPrice(uint input_amount, uint input_reserve, uint output_reserve) 
+    internal returns(uint)
     {
         
+    }
+
+    function ethToERC20(uint min_tokens) public payable returns(uint)
+    {
+        uint eth_sold = msg.value; 
+        
+        require(eth_sold > 0 && min_tokens >0);
+
+        uint token_reserve = s_token.balanceOf(address(this));
+
+        uint tokens_bought = getInputPrice(eth_sold, address(this).balance - eth_sold, token_reserve);
+
+        require(tokens_bought >= min_tokens);
+
+        require(s_token.transfer(msg.sender, tokens_bought));
+
+        //emit
+
+        return tokens_bought; 
     }
 }
