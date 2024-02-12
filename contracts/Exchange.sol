@@ -126,8 +126,7 @@ contract Exchange
         return(eth_amount, token_amount);
     }
 
-    function getInputPrice(uint input_amount, uint input_reserve, uint output_reserve) 
-    internal returns(uint)
+    function getInputPrice(uint input_amount, uint input_reserve, uint output_reserve) internal returns(uint)
     {
         require(input_reserve > 0 && output_reserve > 0);
 
