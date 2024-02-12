@@ -3,8 +3,17 @@ pragma solidity ^0.8.19;
 
 import "node_modules/@openzeppelin/contracts/interfaces/IERC20.sol";
 
+
+//Factory interface 
+contract Factory
+{
+    function getExchange(address token) public returns(address){}
+}
+
 contract Exchange 
 {
+    Factory public factory; 
+
     //@dev ERC20 token that's being traded on the exchange 
     IERC20 public s_token;
 
@@ -16,6 +25,8 @@ contract Exchange
     constructor(address token)
     {
         s_token = IERC20(token); 
+        
+        factory = msg.sender; 
     }
 
     event LiquidityAdded(
@@ -31,10 +42,22 @@ contract Exchange
 
     event TokensPurchased(
         address buyer,
+        uint eth_sold,
+        uint tokens_bought
+    );
+
+    event EthPurchased(
+        address buyer,
         uint tokens_sold,
         uint eth_bought
     );
- 
+
+    event TokensSwapped(
+        address buyer,
+        uint sellingTokens,
+        uint purchasingTokens
+    );
+
     function addLiquidity(uint min_liquidity,uint max_tokens) public payable returns(uint)
     {
         uint total_liquidity = s_totalSupply; 
@@ -117,7 +140,7 @@ contract Exchange
         return numerator / denominator; 
     }
 
-    function ethToToken(uint min_tokens) public payable returns(uint)
+    function ethToToken(uint min_tokens, address receiver) public payable returns(uint)
     {
         uint eth_sold = msg.value; 
         
@@ -129,9 +152,9 @@ contract Exchange
 
         require(tokens_bought >= min_tokens);
 
-        require(s_token.transfer(msg.sender, tokens_bought));
+        require(s_token.transfer(receiver, tokens_bought));
 
-        emit TokensPurchased(msg.sender, eth_sold, tokens_bought);
+        emit TokensPurchased(receiver, eth_sold, tokens_bought);
 
         return tokens_bought; 
     }
@@ -150,6 +173,29 @@ contract Exchange
 
         require(s_token.transferFrom(msg.sender, address(this), tokens_sold));
 
-        TokensPurchased(msg.sender, tokens_sold, eth_bought);
+        EthPurchased(msg.sender, tokens_sold, eth_bought);
+
+        return eth_bought; 
+    }
+
+    function tokenToToken(uint tokens_sold, uint min_tokens_bought, address token) public returns(uint)
+    {
+        address exchange_address = factory.getExchange(token);
+
+        require(tokens_sold > 0 && min_tokens_bought > 0);
+
+        require(exchange_address != address(this) && exchange_address != address(0));
+
+        uint token_reserve = s_token.balanceOf(address(this));
+
+        uint eth_bought = getInputPrice(tokens_sold, token_reserve, address(this).balance);
+
+        require(s_token.transferFrom(msg.sender, address(this), tokens_sold));
+
+        uint tokens_bought = Exchange(exchange_address).ethToToken{value: eth_bought}(min_tokens_bought, msg.sender);
+
+        emit TokensSwapped(msg.sender, tokens_sold, tokens_bought);
+
+        return tokens_bought; 
     }
 }
