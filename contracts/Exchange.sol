@@ -12,6 +12,7 @@ contract Factory
 
 contract Exchange 
 {
+    //@dev Factory interface's object
     Factory public factory; 
 
     //@dev ERC20 token that's being traded on the exchange 
