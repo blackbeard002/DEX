@@ -30,6 +30,7 @@ contract Exchange
         factory = msg.sender; 
     }
 
+    //@dev Emitted when liquidity is added 
     event LiquidityAdded(
         uint indexed liquidityMinted,
         uint indexed balanceOfUser,
