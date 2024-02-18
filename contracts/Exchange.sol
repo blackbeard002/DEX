@@ -37,6 +37,7 @@ contract Exchange
         uint indexed totalPoolLiquidity
     );
 
+    //@dev Emitted when liquidity is removed 
     event LiquidityRemoved(
         uint indexed EthersAmount,
         uint indexed TokenAmount
