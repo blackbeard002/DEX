@@ -43,6 +43,7 @@ contract Exchange
         uint indexed TokenAmount
     );
 
+    //@dev Emitted when tokens are purchased
     event TokensPurchased(
         address buyer,
         uint eth_sold,
