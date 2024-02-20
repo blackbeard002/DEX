@@ -50,6 +50,7 @@ contract Exchange
         uint tokens_bought
     );
 
+    //@dev Emitted when ETH are purchased
     event EthPurchased(
         address buyer,
         uint tokens_sold,
