@@ -57,6 +57,7 @@ contract Exchange
         uint eth_bought
     );
 
+    //@dev Emitted when Tokens are swapped
     event TokensSwapped(
         address buyer,
         uint sellingTokens,
