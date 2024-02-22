@@ -64,6 +64,7 @@ contract Exchange
         uint purchasingTokens
     );
 
+    //@dev Add liquidity to the pool
     function addLiquidity(uint min_liquidity,uint max_tokens) public payable returns(uint)
     {
         uint total_liquidity = s_totalSupply; 
