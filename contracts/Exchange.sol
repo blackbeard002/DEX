@@ -107,6 +107,7 @@ contract Exchange
         }
     }
 
+    //@dev Remove liquidity from the pool
     function removeLiquidity(uint amount, uint min_eth, uint min_tokens) public returns(uint,uint)
     {
         require(amount > 0 && min_eth > 0 && min_tokens >0);
