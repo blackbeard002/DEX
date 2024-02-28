@@ -148,7 +148,7 @@ contract Exchange
         return numerator / denominator; 
     }
 
-    //@dev Convert ETH to Tokens of choice 
+    //@dev Convert ETH to Token of choice 
     function ethToToken(uint min_tokens, address receiver) public payable returns(uint)
     {
         uint eth_sold = msg.value; 
@@ -168,6 +168,7 @@ contract Exchange
         return tokens_bought; 
     }
 
+    //@dev Convert Token of choice to ETH 
     function tokenToEth(uint tokens_sold, uint min_eth) public returns(uint)
     {
         require(tokens_sold > 0 && min_eth > 0);
