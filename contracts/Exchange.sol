@@ -188,7 +188,7 @@ contract Exchange
         return eth_bought; 
     }
 
-    //@dev Convert Token 'A' to Token 'B'
+    //@dev Converts Token 'A' to Token 'B'
     function tokenToToken(uint tokens_sold, uint min_tokens_bought, address token) public returns(uint)
     {
         address exchange_address = factory.getExchange(token);
